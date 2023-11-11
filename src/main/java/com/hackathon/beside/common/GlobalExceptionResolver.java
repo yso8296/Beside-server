@@ -16,8 +16,6 @@ public class GlobalExceptionResolver {
 
     @ExceptionHandler(ConstraintViolationException.class)
     public FailResponse resolveException(Exception e) {
-        String localizedMessage = e.getLocalizedMessage();
-        System.out.println("localizedMessage = " + localizedMessage);
         return new FailResponse(e.getMessage());
     }
 }
