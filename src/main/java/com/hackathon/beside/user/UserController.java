@@ -1,9 +1,9 @@
 package com.hackathon.beside.user;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @RestController
@@ -20,5 +20,11 @@ public class UserController {
         return profile;
     }
 
-
+    @PostMapping("/join") // 회원가입
+    public ResponseEntity<Void> join(
+            @RequestBody JoinForm form
+    ) {
+        userService.join(form);
+        return new ResponseEntity(HttpStatus.OK);
+    }
 }

@@ -1,14 +1,17 @@
 package com.hackathon.beside.common.entity;
 
+import com.hackathon.beside.user.JoinForm;
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.Getter;
+import lombok.*;
 
 import java.util.List;
 
 @Getter
 @Table(name = "users")
 @Entity
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class User {
 
     @Id
@@ -38,4 +41,13 @@ public class User {
     private List<SummaryUsersMapping> summaryUsersMappings;
     @OneToMany(mappedBy = "user")
     private List<NewsUsersMapping> newsUsersMappings;
+
+    public static User toEntity(JoinForm form, Interest interest) {
+        return User.builder()
+                .account(form.getAccount())
+                .password(form.getPassword())
+                .nickname(form.getNickname())
+                .interest(interest)
+                .build();
+    }
 }
