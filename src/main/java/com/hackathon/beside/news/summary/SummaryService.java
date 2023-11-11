@@ -1,7 +1,7 @@
 package com.hackathon.beside.news.summary;
 
 import com.hackathon.beside.common.entity.Summary;
-import com.hackathon.beside.news.summary.infrastructure.exception.ResourceNotFoundException;
+import com.hackathon.beside.common.exception.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +13,7 @@ public class SummaryService {
 
     public String getSummaryById(long summaryId) {
         Summary summary = summaryRepository.findById(summaryId)
-                .orElseThrow(ResourceNotFoundException::new);
+                .orElseThrow(() -> new ResourceNotFoundException("요청하신 필기 노트를 찾을 수 없습니다."));
 
         return summary.getContent();
     }
