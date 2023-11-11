@@ -20,7 +20,7 @@ public class UserController {
         return profile;
     }
 
-    @PostMapping("/join") // 회원가입
+    @PostMapping("/users") // 회원가입
     public ResponseEntity<Void> join(
             @RequestBody JoinForm form
     ) {

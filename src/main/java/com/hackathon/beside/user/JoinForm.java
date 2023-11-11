@@ -17,6 +17,4 @@ public class JoinForm {
     private String nickname;
     private String schoolName;
     private String interest;
-
-
 }
