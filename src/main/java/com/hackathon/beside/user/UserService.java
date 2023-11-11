@@ -1,8 +1,10 @@
 package com.hackathon.beside.user;
 
 import com.hackathon.beside.common.entity.Interest;
+import com.hackathon.beside.common.entity.School;
 import com.hackathon.beside.common.entity.User;
 import com.hackathon.beside.interest.InterestRepository;
+import com.hackathon.beside.school.SchoolRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -13,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class UserService {
 
     private final UserRepository userRepository;
-    private final InterestRepository interestRepository;
+    private final SchoolRepository schoolRepository;
 
     public Profile getUserProfile(Long userId) {
         User user = userRepository.findById(userId).orElseThrow();
@@ -25,9 +27,14 @@ public class UserService {
 
     public void join(JoinForm form) {
         Interest interest = Interest.toEntity(form.getInterest());
-        User user = User.toEntity(form, interest);
+        School school = School.toEntity(form.getSchoolName());
 
-        interestRepository.save(interest);
+        schoolRepository.save(school);
+
+        User user = User.toEntity(form);
+        user.setInterest(interest);
+        user.setSchool(school);
+
         userRepository.save(user);
     }
 }

@@ -7,6 +7,7 @@ import lombok.*;
 import java.util.List;
 
 @Getter
+@Setter
 @Table(name = "users")
 @Entity
 @Builder
@@ -42,12 +43,11 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<NewsUsersMapping> newsUsersMappings;
 
-    public static User toEntity(JoinForm form, Interest interest) {
+    public static User toEntity(JoinForm form) {
         return User.builder()
                 .account(form.getAccount())
                 .password(form.getPassword())
                 .nickname(form.getNickname())
-                .interest(interest)
                 .build();
     }
 }

@@ -1,5 +1,6 @@
 package com.hackathon.beside.common.entity;
 
+import com.hackathon.beside.common.enums.InterestEnum;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -17,7 +18,9 @@ public class Interest {
     private String name;
 
     public static Interest toEntity(String name) {
+        long interestId = InterestEnum.convertToId(name);
         return Interest.builder()
+                .id(interestId)
                 .name(name)
                 .build();
     }
