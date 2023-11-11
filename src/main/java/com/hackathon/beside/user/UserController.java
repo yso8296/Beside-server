@@ -34,4 +34,11 @@ public class UserController {
     ) {
         return userService.checkAccountDuplicate(account);
     }
+
+    @GetMapping("/users/nickname")  // 닉네임 중복 체크
+    public boolean checkDuplicateNickname(
+            @RequestParam(name = "nickname") String nickname
+    ) {
+        return userService.checkNicknameDuplicate(nickname);
+    }
 }
