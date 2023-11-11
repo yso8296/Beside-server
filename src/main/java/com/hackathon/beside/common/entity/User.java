@@ -2,10 +2,11 @@ package com.hackathon.beside.common.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.Getter;
 
 import java.util.List;
 
-@Data
+@Getter
 @Table(name = "users")
 @Entity
 public class User {
@@ -17,7 +18,8 @@ public class User {
     private String password;
     private String nickname;
     private Long readNewsCount;
-    private Long solvedQuizCount;
+    private Long enteredQuizCount;
+    private Float correctRate;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "school_id")

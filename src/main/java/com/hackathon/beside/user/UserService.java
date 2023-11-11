@@ -3,26 +3,21 @@ package com.hackathon.beside.user;
 import com.hackathon.beside.common.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
+import org.springframework.transaction.annotation.Transactional;
 
 @RequiredArgsConstructor
+@Transactional
 @Service
 public class UserService {
 
     private final UserRepository userRepository;
 
-    public User getProfile(long userId) {
-        User retreivedUser = null;
-        try {
-            Optional<User> user = userRepository.findById(userId);
+    public Profile getUserProfile(Long userId) {
+        User user = userRepository.findById(userId).orElseThrow();
 
-            retreivedUser = user.get();
-            System.out.println(retreivedUser);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        Profile profile = Profile.toProfile(user);
 
-        return retreivedUser;
+        return profile;
     }
+
 }
