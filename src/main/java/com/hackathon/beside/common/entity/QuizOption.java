@@ -1,10 +1,12 @@
 package com.hackathon.beside.common.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
 
 import java.util.List;
 
 @Entity
+@Getter
 public class QuizOption {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)

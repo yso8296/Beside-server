@@ -1,4 +1,7 @@
 package com.hackathon.beside.news.cardnews;
 
-public interface CardNewsRepository {
+import com.hackathon.beside.common.entity.News;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface CardNewsRepository extends JpaRepository<News, Long> {
 }

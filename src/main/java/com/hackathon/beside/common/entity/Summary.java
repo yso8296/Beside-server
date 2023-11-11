@@ -1,11 +1,13 @@
 package com.hackathon.beside.common.entity;
 
 import jakarta.persistence.*;
+import lombok.Data;
 
 import java.time.LocalDate;
 import java.util.List;
 
 @Entity
+@Data
 public class Summary {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)

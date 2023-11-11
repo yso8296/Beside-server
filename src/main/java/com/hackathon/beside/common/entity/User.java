@@ -1,9 +1,11 @@
 package com.hackathon.beside.common.entity;
 
 import jakarta.persistence.*;
+import lombok.Data;
 
 import java.util.List;
 
+@Data
 @Table(name = "users")
 @Entity
 public class User {
