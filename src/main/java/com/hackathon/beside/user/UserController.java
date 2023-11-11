@@ -18,6 +18,5 @@ public class UserController {
     ) {
 
         return userService.getProfile(userId);
-//        return "hello";
     }
 }
