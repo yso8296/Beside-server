@@ -1,4 +1,7 @@
 package com.hackathon.beside.auth;
 
-public interface AuthRepository {
+import com.hackathon.beside.common.entity.User;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface AuthRepository extends JpaRepository<User, Long> {
 }

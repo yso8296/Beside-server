@@ -1,5 +1,6 @@
 package com.hackathon.beside.common.entity;
 
+import com.hackathon.beside.common.enums.UserAuthority;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -18,6 +19,7 @@ public class User {
     private String nickname;
     private Long readNewsCount;
     private Long solvedQuizCount;
+    private UserAuthority authority;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "school_id")
