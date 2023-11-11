@@ -25,15 +25,19 @@ public class UserService {
         return profile;
     }
 
+    @Transactional
     public void join(JoinForm form) {
         Interest interest = Interest.toEntity(form.getInterest());
-        School school = School.toEntity(form.getSchoolName());
-
-        schoolRepository.save(school);
-
         User user = User.toEntity(form);
-        user.setInterest(interest);
+
+        School school = schoolRepository.findByName(form.getSchoolName());
+        if (school == null) {
+            school = School.toEntity(form.getSchoolName());
+            schoolRepository.save(school);
+        }
+
         user.setSchool(school);
+        user.setInterest(interest);
 
         userRepository.save(user);
     }
