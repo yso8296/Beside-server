@@ -21,7 +21,6 @@ public class AuthController {
 
     @PostMapping("/login/form")
     public TokenDto formLogin(@RequestBody FormLoginDto formLoginRequest) {
-
         return authService.formLogin(formLoginRequest);
     }
 

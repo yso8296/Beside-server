@@ -6,6 +6,7 @@ import com.hackathon.beside.common.entity.User;
 import com.hackathon.beside.interest.InterestRepository;
 import com.hackathon.beside.school.SchoolRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class UserService {
 
+    private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
     private final SchoolRepository schoolRepository;
 
@@ -26,6 +28,8 @@ public class UserService {
 
     @Transactional
     public void join(JoinForm form) {
+
+
         Interest interest = Interest.toEntity(form.getInterest());
         User user = User.toEntity(form);
 

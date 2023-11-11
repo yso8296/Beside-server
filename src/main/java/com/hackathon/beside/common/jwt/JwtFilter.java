@@ -38,14 +38,13 @@ public class JwtFilter extends GenericFilterBean {
     }
 
     private boolean isInValidToken(ServletRequest request, ServletResponse response, FilterChain chain, String jwt) throws IOException, ServletException {
-        return isInValidTokenForm(request, response, chain, jwt) ||
+        return isInValidTokenForm(jwt) ||
                 isInValidTokenUsage(request, jwt) ||
                 isBlackListToken(jwt);
     }
 
-    private boolean isInValidTokenForm(ServletRequest request, ServletResponse response, FilterChain chain, String jwt) throws IOException, ServletException {
+    private boolean isInValidTokenForm(String jwt) throws IOException, ServletException {
         if (!StringUtils.hasText(jwt) || tokenProvider.isInvalidToken(jwt)) {
-            chain.doFilter(request, response);
             return true;
         }
         return false;

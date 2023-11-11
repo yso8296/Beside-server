@@ -22,13 +22,9 @@ public class CustomUserDetailService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        com.hackathon.beside.common.entity.User user = authRepository.getReferenceById(Long.parseLong(username));
-        // todo EncodedPassword가 어떻게 나올 수 있지..?
-        String encodedPassword = passwordEncoder.encode(user.getPassword());
+        com.hackathon.beside.common.entity.User user = authRepository.findByAccount(username);
 
         List<GrantedAuthority> grantedAuthorities = List.of(new SimpleGrantedAuthority(user.getAuthority().name()));
-        // todo 왜 권한정보를 List로 받아야 하게 만들었을까..? 권한을 계층 구조로 만들어야하나..?
-
         return new User(String.valueOf(user.getId()), user.getPassword(), grantedAuthorities);
     }
 }
