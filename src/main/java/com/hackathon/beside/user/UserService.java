@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 @RequiredArgsConstructor
-@Transactional
 @Service
 public class UserService {
 
@@ -40,5 +39,9 @@ public class UserService {
         user.setInterest(interest);
 
         userRepository.save(user);
+    }
+
+    public boolean checkAccountDuplicate(String account) {
+        return userRepository.existsByAccount(account);
     }
 }

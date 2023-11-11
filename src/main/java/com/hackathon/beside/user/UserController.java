@@ -27,4 +27,11 @@ public class UserController {
         userService.join(form);
         return new ResponseEntity(HttpStatus.OK);
     }
+
+    @GetMapping("/users/account-name")  // 아이디 중복 체크
+    public boolean checkDuplicateAccount(
+            @RequestParam(name = "account") String account
+    ) {
+        return userService.checkAccountDuplicate(account);
+    }
 }
