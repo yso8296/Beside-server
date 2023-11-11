@@ -1,10 +1,15 @@
 package com.hackathon.beside.common.entity;
 
+import com.hackathon.beside.common.enums.UserAuthority;
 import com.hackathon.beside.user.JoinForm;
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.List;
+
+import static com.hackathon.beside.common.enums.UserAuthority.NORMAL_USER;
 
 @Getter
 @Setter
@@ -24,6 +29,7 @@ public class User {
     private Long readNewsCount;
     private Long enteredQuizCount;
     private Float correctRate;
+    private UserAuthority authority;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "school_id")
@@ -48,6 +54,7 @@ public class User {
                 .account(form.getAccount())
                 .password(form.getPassword())
                 .nickname(form.getNickname())
+                .authority(NORMAL_USER)
                 .build();
     }
 }
