@@ -1,12 +1,10 @@
 package com.hackathon.beside.common.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
 @Getter
@@ -17,4 +15,7 @@ public class News {
     private String subject;
     private Integer takenTime;
     private LocalDate publishedDate;
+
+    @OneToMany(mappedBy = "news")
+    public List<NewsContent> newsContents;
 }
