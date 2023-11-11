@@ -44,4 +44,8 @@ public class UserService {
     public boolean checkAccountDuplicate(String account) {
         return userRepository.existsByAccount(account);
     }
+
+    public boolean checkNicknameDuplicate(String nickname) {
+        return userRepository.existsByNickname(nickname);
+    }
 }
