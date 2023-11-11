@@ -12,16 +12,10 @@ public class UserService {
 
     private final UserRepository userRepository;
 
-    public UserProfileDto getUserProfile(Long userId) {
+    public Profile getUserProfile(Long userId) {
         User user = userRepository.findById(userId).orElseThrow();
 
-        UserProfileDto profile = new UserProfileDto();
-        profile.setNickname(user.getNickname());
-        profile.setSchoolName(user.getSchool().getName());
-        profile.setInterest(user.getInterest().getName());
-        profile.setReadNewsCount(user.getReadNewsCount());
-        profile.setSolvedQuizCount(user.getEnteredQuizCount());
-        profile.setCorrectRate(user.getCorrectRate());
+        Profile profile = Profile.toProfile(user);
 
         return profile;
     }
