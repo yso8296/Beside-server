@@ -1,9 +1,7 @@
 package com.hackathon.beside.user;
 
-import com.hackathon.beside.common.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 @RequiredArgsConstructor
@@ -12,12 +10,12 @@ public class UserController {
 
     private final UserService userService;
 
-    @GetMapping("/users/{userId}/profile")
-    public User getProfile(
-            @PathVariable("userId") long userId
+    @GetMapping("/profile")  // 유저 프로필 조회
+    public UserProfileDto getProfile(
+            Long userId
     ) {
+        UserProfileDto userProfileDto = userService.getUserProfile(userId);
 
-        return userService.getProfile(userId);
-//        return "hello";
+        return userProfileDto;
     }
 }
