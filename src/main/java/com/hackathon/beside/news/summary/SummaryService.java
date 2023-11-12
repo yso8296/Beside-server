@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
@@ -54,5 +55,10 @@ public class SummaryService {
 
     private static boolean isEqualUser(User user, SummaryUsersMapping summaryUsersMapping) {
         return summaryUsersMapping.getUser().getId() == user.getId();
+    }
+
+    public String getTodaySummary(Long userId) {
+        Optional<Summary> todaySummary = summaryRepository.getTodaySummary();
+        return todaySummary.get().getContent();
     }
 }
