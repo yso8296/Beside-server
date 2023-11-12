@@ -8,7 +8,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RequiredArgsConstructor
@@ -17,11 +16,17 @@ public class QuizController {
 
     private final QuizService quizService;
 
+    @GetMapping("/quiz/today")
+    public QuizDto getTodayQuiz() {
+        return quizService.getTodayQuiz();
+    }
+
     @GetMapping("/quiz/{quizId}")
-    public QuizDto getQuizById(
+    public QuizDto getTodayQuiz(
+            @LoggedInUserId Long userId,
             @PathVariable("quizId") @Positive long quizId
     ) {
-        return quizService.getQuizById(quizId);
+        return quizService.getQuizById(quizId, userId);
     }
 
     @GetMapping("/record/quiz")

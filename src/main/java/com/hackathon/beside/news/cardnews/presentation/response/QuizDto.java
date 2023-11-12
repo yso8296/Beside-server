@@ -1,6 +1,7 @@
 package com.hackathon.beside.news.cardnews.presentation.response;
 
 import com.hackathon.beside.common.entity.Quiz;
+import com.hackathon.beside.common.entity.QuizOptionUserMapping;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,7 +16,8 @@ public class QuizDto {
     private String quizName;
     private List<QuestionDto> questions;
 
-    public static QuizDto toQuizDto(Quiz quiz) {
+
+    public static QuizDto toTodayQuiz(Quiz quiz) {
         List<QuestionDto> questions = QuestionDto.toQuestions(quiz.getQuestions());
 
         return QuizDto.builder()
@@ -23,8 +25,6 @@ public class QuizDto {
                 .quizName(quiz.getSubject())
                 .questions(questions)
                 .build();
-
-
     }
 
     @Builder
@@ -32,5 +32,11 @@ public class QuizDto {
         this.quizId = quizId;
         this.quizName = quizName;
         this.questions = questions;
+    }
+
+    public QuizDto(Quiz quiz, List<QuestionDto> questionDtos) {
+        this.quizId = quiz.getId();
+        this.quizName = quiz.getSubject();
+        this.questions = questionDtos;
     }
 }
