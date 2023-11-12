@@ -27,6 +27,7 @@ public class User {
     private Long readNewsCount;
     private Long enteredQuizCount;
     private Float correctRate;
+    private String fcmToken;
     private UserAuthority authority;
 
     @ManyToOne(fetch = FetchType.LAZY)
