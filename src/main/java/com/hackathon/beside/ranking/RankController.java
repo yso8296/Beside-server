@@ -17,6 +17,7 @@ public class RankController {
             @LoggedInUserId Long userId,
             @RequestParam("interest") String interest
     ) {
+        System.out.println("userId = " + userId);
         return rankService.getUserRank(userId, interest);
     }
 }

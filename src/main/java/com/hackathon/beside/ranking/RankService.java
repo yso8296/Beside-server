@@ -39,7 +39,25 @@ public class RankService {
             map.put(score, interestUser);
         }
 
-        Map<Integer, User> keyDescendingMap = new TreeMap<>();  // 3
+//        List<MyRankDto> userRanks = new ArrayList<>();
+//        MyRankDto myRanking = new MyRankDto();
+//        int cnt = 1;
+//        int check = 0;
+//        for (int key : map.keySet()) {
+//            User user = map.get(key);
+//            if (user.getId() == userId) {
+//                myRanking = MyRankDto.toMyRankDto(user, cnt, (float) key);
+//                check++;
+//            } else if (userRanks.size() < 3) {
+//                userRanks.add(MyRankDto.toMyRankDto(user, cnt, (float) key));
+//                check++;
+//            }
+//            cnt++;
+//
+//            if(check == 4) break;
+//        }
+
+        Map<Integer, User> keyDescendingMap = new TreeMap<>(Collections.reverseOrder());  // 3
         keyDescendingMap.putAll(map);
 
         List<MyRankDto> userRanks = new ArrayList<>();
@@ -52,13 +70,15 @@ public class RankService {
                 myRanking = MyRankDto.toMyRankDto(user, cnt, (float) key);
                 check++;
             } else if(userRanks.size() < 3){
-                userRanks.add(MyRankDto.toMyRankDto(user, cnt, key));
+                userRanks.add(MyRankDto.toMyRankDto(user, cnt, (float) key));
                 check++;
             }
             cnt++;
 
             if(check == 4) break;
         }
+
+        myRanking.
 
         return TotalRankDto.toTotalRankDto(myRanking, userRanks);
     }
