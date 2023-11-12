@@ -4,6 +4,8 @@ import com.hackathon.beside.common.annotation.LoggedInUserId;
 import com.hackathon.beside.news.cardnews.presentation.response.QuizDto;
 import jakarta.validation.constraints.Positive;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,7 +25,17 @@ public class QuizController {
     public QuizDto getTodayQuiz(
             @LoggedInUserId Long userId,
             @PathVariable("quizId") @Positive long quizId
-    ){
-        return quizService.getQuizById(quizId,userId);
+    ) {
+        return quizService.getQuizById(quizId, userId);
+    }
+
+    @GetMapping("/record/quiz")
+    public QuizRecordHasNextDto quizRecord(
+            @LoggedInUserId Long userId,
+            @PageableDefault(page = 0) Pageable pageable
+    ) {
+        QuizRecordHasNextDto quizRecordHasNextDto = quizService.quizRecord(userId, pageable);
+
+        return quizRecordHasNextDto;
     }
 }

@@ -4,8 +4,6 @@ import com.hackathon.beside.common.enums.UserAuthority;
 import com.hackathon.beside.user.JoinForm;
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.List;
 
@@ -13,9 +11,9 @@ import static com.hackathon.beside.common.enums.UserAuthority.NORMAL_USER;
 
 @Getter
 @Setter
+@Builder
 @Table(name = "users")
 @Entity
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class User {
@@ -29,6 +27,7 @@ public class User {
     private Long readNewsCount;
     private Long enteredQuizCount;
     private Float correctRate;
+    //private float time;
     private UserAuthority authority;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -51,6 +50,9 @@ public class User {
                 .account(form.getAccount())
                 .password(form.getPassword())
                 .nickname(form.getNickname())
+                .readNewsCount(0L)
+                .enteredQuizCount(0L)
+                .correctRate(0f)
                 .authority(NORMAL_USER)
                 .build();
     }
