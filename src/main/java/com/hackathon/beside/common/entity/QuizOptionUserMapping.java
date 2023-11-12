@@ -15,4 +15,9 @@ public class QuizOptionUserMapping {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "quiz_option_id")
     private QuizOption quizOption;
+
+    public QuizOptionUserMapping(User user, QuizOption quizOption) {
+        this.user = user;
+        this.quizOption = quizOption;
+    }
 }
