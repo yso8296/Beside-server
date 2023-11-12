@@ -10,13 +10,13 @@ import java.util.List;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class TotalRankDto {
 
-    private MyRankDto me;
-    private List<MyRankDto> myRankDtos;
+    private MyRankDto myRanking;
+    private List<MyRankDto> rankingUsers;
 
     public static TotalRankDto toTotalRankDto(MyRankDto me, List<MyRankDto> myRankDtos) {
         return TotalRankDto.builder()
-                .me(me)
-                .myRankDtos(myRankDtos)
+                .myRanking(me)
+                .rankingUsers(myRankDtos)
                 .build();
     }
 }

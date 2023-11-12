@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static com.hackathon.beside.fcm.RequestPushMessage.MORNING_ALARM;
+import static com.hackathon.beside.fcm.RequestPushMessage.*;
 
 @Slf4j
 @Service
@@ -34,7 +34,7 @@ public class NotificationScheduler {
 //
 //    @PostConstruct
 //    public void firebaseSetting() throws IOException {
-//        GoogleCredentials googleCredentials = GoogleCredentials.fromStream(new ClassPathResource("firebase/knu-cse-hackathon-firebase-adminsdk-g0gvw-850377a4d0").getInputStream())
+//        GoogleCredentials googleCredentials = GoogleCredentials.fromStream(new ClassPathResource("firebase/knu-cse-hackathon-firebase-adminsdk-g0gvw-850377a4d0.json").getInputStream())
 //                .createScoped(Arrays.asList("https://www.googleapis.com/auth/firebase.messaging"));
 //        FirebaseOptions secondaryAppConfig = FirebaseOptions.builder()
 //                .setCredentials(googleCredentials)
@@ -43,7 +43,7 @@ public class NotificationScheduler {
 //        this.instance = FirebaseMessaging.getInstance(app);
 //    }
 //
-//    @Scheduled(fixedRate = 10000)
+//    @Scheduled(fixedRate = 500000)
 //    public void pushMorningDietAlarm() throws FirebaseMessagingException {
 //        log.info("비사이드");
 //
@@ -54,6 +54,27 @@ public class NotificationScheduler {
 //        pushAlarm(MORNING_ALARM, allUserFCMTokens);
 //    }
 //
+//    @Scheduled(fixedRate = 600000)
+//    public void pushDietAlarm() throws FirebaseMessagingException {
+//        log.info("비사이드");
+//
+//        // 모든 사용자의 FCM 토큰 가져오기
+//        List<String> allUserFCMTokens = getAllUserFCMTokens();
+//
+//        // 알림 전송
+//        pushAlarm(DINNER_ALARM, allUserFCMTokens);
+//    }
+//
+//    @Scheduled(fixedRate = 300000)
+//    public void pushMornigDietAlarm() throws FirebaseMessagingException {
+//        log.info("비사이드");
+//
+//        // 모든 사용자의 FCM 토큰 가져오기
+//        List<String> allUserFCMTokens = getAllUserFCMTokens();
+//
+//        // 알림 전송
+//        pushAlarm(LUNCH_ALARM, allUserFCMTokens);
+//    }
 //
 //    private void pushAlarm(RequestPushMessage data, List<String> userFCMTokens) throws FirebaseMessagingException {
 //        for (String userFCMToken : userFCMTokens) {
@@ -85,8 +106,15 @@ public class NotificationScheduler {
 //        // 예시: return userDao.getAllUserFCMTokens();
 //        List<String> tokens = new ArrayList<>();
 //        List<User> users = userRepository.findAll();
-//        for (User user : users) {
-//            tokens.add(user.getToken());
+//        List<User> filteredUser = users.stream()
+//                .filter(user ->
+//                        (user.getFcmToken() != null &&
+//                                !user.getFcmToken().trim().isEmpty()))
+//                .toList();
+//
+//        for (User user : filteredUser) {
+//            System.out.println("fcm token: " + user.getFcmToken());
+//            tokens.add(user.getFcmToken());
 //        }
 //        return tokens;
 //    }
