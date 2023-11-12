@@ -13,9 +13,9 @@ import static com.hackathon.beside.common.enums.UserAuthority.NORMAL_USER;
 
 @Getter
 @Setter
+@Builder
 @Table(name = "users")
 @Entity
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class User {
@@ -37,9 +37,6 @@ public class User {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "interest_id")
     private Interest interest;
-
-    @OneToMany(mappedBy = "user")
-    private List<TermsUsersMapping> termsUsersMappings;
     @OneToMany(mappedBy = "user")
     private List<QuizOptionUserMapping> quizOptionsUserMappings;
     @OneToMany(mappedBy = "user")
@@ -54,6 +51,9 @@ public class User {
                 .account(form.getAccount())
                 .password(form.getPassword())
                 .nickname(form.getNickname())
+                .readNewsCount(0L)
+                .enteredQuizCount(0L)
+                .correctRate(0f)
                 .authority(NORMAL_USER)
                 .build();
     }
