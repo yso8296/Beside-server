@@ -4,6 +4,7 @@ import com.hackathon.beside.auth.AuthService;
 import com.hackathon.beside.auth.presentation.request.FormLoginDto;
 import com.hackathon.beside.auth.presentation.response.TokenDto;
 import com.hackathon.beside.common.annotation.LoggedInUserId;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.validation.annotation.Validated;
@@ -20,7 +21,7 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping("/login/form")
-    public TokenDto formLogin(@RequestBody FormLoginDto formLoginRequest) {
+    public TokenDto formLogin(@RequestBody @Valid FormLoginDto formLoginRequest) {
         return authService.formLogin(formLoginRequest);
     }
 

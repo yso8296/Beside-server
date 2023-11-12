@@ -19,9 +19,9 @@ public class QuestionDto {
     private String questionName;
     private List<Option> options;
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    private long selectedOptionId;
+    private Long selectedOptionId;
     @JsonInclude(JsonInclude.Include.NON_NULL)
-    private long answerOptionId;
+    private Long answerOptionId;
     @JsonInclude(JsonInclude.Include.NON_NULL)
     private String explanation;
 

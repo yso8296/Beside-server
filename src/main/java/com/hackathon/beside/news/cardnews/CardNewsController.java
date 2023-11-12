@@ -31,8 +31,7 @@ public class CardNewsController {
             @LoggedInUserId Long userId,
             @PageableDefault(page = 0) Pageable pageable
     ) {
-        CardNewsRecordHasNextDto newsRecord = cardNewsService.getNewsRecord(userId, pageable);
-        return newsRecord;
+        return cardNewsService.getNewsRecord(userId, pageable);
     }
 
     @GetMapping("/cardnews/today")

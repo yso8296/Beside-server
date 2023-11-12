@@ -2,7 +2,9 @@ package com.hackathon.beside.auth;
 
 import com.hackathon.beside.auth.presentation.request.FormLoginDto;
 import com.hackathon.beside.auth.presentation.response.TokenDto;
+import com.hackathon.beside.common.entity.User;
 import com.hackathon.beside.common.jwt.TokenProvider;
+import com.hackathon.beside.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -21,11 +23,25 @@ public class AuthService {
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
     private final TokenProvider tokenProvider;
     private final JwtRepository redisRepository;
+    private final UserRepository userRepository;
 
     public TokenDto formLogin(FormLoginDto formLoginDto) {
         final Authentication authentication = saveSecurityContext(formLoginDto);
+        User user = userRepository.findByAccount(formLoginDto.getAccount());
+
+
+        if (isNewFcmToken(formLoginDto.getFcmToken(), user.getFcmToken())) {
+            user.setFcmToken(formLoginDto.getFcmToken());
+            userRepository.save(user);
+        }
+
 
         return createLoginResponse(authentication);
+    }
+
+    private boolean isNewFcmToken(String requestFcmToken, String savedFcmToken) {
+        System.out.println("AuthService.isNewFcmToken");
+        return !requestFcmToken.equals(savedFcmToken);
     }
 
     private Authentication saveSecurityContext(FormLoginDto formLoginDto) {
