@@ -2,13 +2,13 @@ package com.hackathon.beside.news.quiz;
 
 import com.hackathon.beside.common.annotation.LoggedInUserId;
 import com.hackathon.beside.news.cardnews.presentation.response.QuizDto;
+import com.hackathon.beside.news.quiz.presentation.request.SubmitQuiz;
+import com.hackathon.beside.news.quiz.presentation.response.QuizResult;
 import jakarta.validation.constraints.Positive;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @RestController
@@ -37,5 +37,17 @@ public class QuizController {
         QuizRecordHasNextDto quizRecordHasNextDto = quizService.quizRecord(userId, pageable);
 
         return quizRecordHasNextDto;
+    }
+
+    @PostMapping("/quiz/submit")
+    public QuizResult submitQuiz(
+            @LoggedInUserId Long userId,
+            @RequestBody SubmitQuiz submitQuiz
+    ) {
+
+        System.out.println("userId = " + userId);
+        System.out.println("submitQuiz = " + submitQuiz);
+
+        return quizService.submitQuiz(userId, submitQuiz);
     }
 }

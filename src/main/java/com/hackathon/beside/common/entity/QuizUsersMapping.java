@@ -1,8 +1,10 @@
 package com.hackathon.beside.common.entity;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 
+@Builder
 @Entity
 @Getter
 public class QuizUsersMapping {
@@ -15,6 +17,6 @@ public class QuizUsersMapping {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "quiz_id")
     private Quiz quiz;
-    private int CorrectCount;
-    private int WrongCount;
+    private int correctCount;
+    private int wrongCount;
 }

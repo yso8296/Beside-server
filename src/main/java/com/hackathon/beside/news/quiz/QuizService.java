@@ -9,6 +9,9 @@ import com.hackathon.beside.common.entity.User;
 import com.hackathon.beside.common.exception.ResourceNotFoundException;
 import com.hackathon.beside.news.cardnews.presentation.response.QuestionDto;
 import com.hackathon.beside.news.cardnews.presentation.response.QuizDto;
+import com.hackathon.beside.news.quiz.presentation.request.Answer;
+import com.hackathon.beside.news.quiz.presentation.request.SubmitQuiz;
+import com.hackathon.beside.news.quiz.presentation.response.QuizResult;
 import com.hackathon.beside.quizUsersMapping.QuizUsersMappingRepository;
 import com.hackathon.beside.user.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +20,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,7 +61,7 @@ public class QuizService {
                 .map(QuizOptionUserMapping::getId)
                 .toList();
 
-        Map<Long,Question> wrongQuestionMap = quiz.getQuestions()
+        Map<Long, Question> wrongQuestionMap = quiz.getQuestions()
                 .stream()
                 .filter(question -> wrongAnswerQuestionIds.contains(question.getId()))
                 .collect(Collectors.toMap(
@@ -113,5 +117,52 @@ public class QuizService {
 
     private static boolean isEqualUser(User user, QuizUsersMapping quizUsersMapping) {
         return quizUsersMapping.getUser().getId() == user.getId();
+    }
+
+    @Transactional
+    public QuizResult submitQuiz(Long userId, SubmitQuiz submitQuiz) {
+        int answerCount = 0;
+        User user = userRepository.findById(userId).get();
+
+        List<Answer> answers = submitQuiz.getAnswers();
+        List<Long> questionIds = answers.stream().map(Answer::getQuestionId).toList();
+        Map<Long, Answer> answerMap = answers.stream().collect(Collectors.toMap(
+                Answer::getQuestionId,
+                answer -> answer
+        ));
+
+        List<QuizOption> quizOptions = quizOptionRepository.findAllInQuestionIds(questionIds);
+        for (QuizOption quizOption : quizOptions) {
+            Long questionId = quizOption.getQuestion().getId();
+            Answer answer = answerMap.get(questionId);
+
+            if (answer.getOptionId() == quizOption.getId()) {
+                answerCount++;
+            }
+        }
+
+        List<QuizOption> quizOptionList = new ArrayList<>();
+        answers.forEach(
+                answer ->
+                        quizOptionList.add(quizOptionRepository.findByQuestionIdAndOptionId(answer.getQuestionId(), answer.getOptionId()))
+        );
+
+        List<QuizOptionUserMapping> quizOptionUserMappings = new ArrayList<>();
+        quizOptionList.forEach(
+                quizOption -> quizOptionUserMappings.add(new QuizOptionUserMapping(user, quizOption))
+        );
+
+        Quiz quiz = quizRepository.findById(submitQuiz.getQuizId()).get();
+        QuizUsersMapping qum = QuizUsersMapping.builder()
+                .quiz(quiz)
+                .user(user)
+                .correctCount(answerCount)
+                .wrongCount(answers.size() - answerCount)
+                .build();
+
+        quizOptionUserRepository.saveAll(quizOptionUserMappings);
+        quizUsersMappingRepository.save(qum);
+
+        return new QuizResult(user.getNickname(), answerCount, answers.size());
     }
 }
