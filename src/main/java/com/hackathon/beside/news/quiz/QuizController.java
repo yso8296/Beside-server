@@ -1,5 +1,6 @@
 package com.hackathon.beside.news.quiz;
 
+import com.hackathon.beside.common.annotation.LoggedInUserId;
 import com.hackathon.beside.news.cardnews.presentation.response.QuizDto;
 import jakarta.validation.constraints.Positive;
 import lombok.RequiredArgsConstructor;
@@ -25,7 +26,7 @@ public class QuizController {
 
     @GetMapping("/record/quiz")
     public QuizRecordHasNextDto quizRecord(
-            @RequestParam("userId") Long userId,
+            @LoggedInUserId Long userId,
             @PageableDefault(page = 0) Pageable pageable
     ) {
         QuizRecordHasNextDto quizRecordHasNextDto = quizService.quizRecord(userId, pageable);

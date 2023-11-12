@@ -1,5 +1,6 @@
 package com.hackathon.beside.news.cardnews;
 
+import com.hackathon.beside.common.annotation.LoggedInUserId;
 import com.hackathon.beside.news.cardnews.presentation.response.CardNewsContentDto;
 import jakarta.validation.constraints.Positive;
 import lombok.RequiredArgsConstructor;
@@ -27,7 +28,7 @@ public class CardNewsController {
 
     @GetMapping("/record/cardnews")
     public CardNewsRecordHasNextDto getChadNewsRecord(
-            @RequestParam("userId") Long userId,
+            @LoggedInUserId Long userId,
             @PageableDefault(page = 0) Pageable pageable
     ) {
         CardNewsRecordHasNextDto newsRecord = cardNewsService.getNewsRecord(userId, pageable);

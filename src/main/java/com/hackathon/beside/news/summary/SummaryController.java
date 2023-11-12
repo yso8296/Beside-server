@@ -1,5 +1,6 @@
 package com.hackathon.beside.news.summary;
 
+import com.hackathon.beside.common.annotation.LoggedInUserId;
 import jakarta.validation.constraints.Positive;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -26,7 +27,7 @@ public class SummaryController {
 
     @GetMapping("/record/summaries")
     public SummaryRecordHasNextDto SummaryRecord(
-            @RequestParam("userId") Long userId,
+            @LoggedInUserId Long userId,
             @PageableDefault(page = 0) Pageable pageable
     ) {
         SummaryRecordHasNextDto summaryRecord = summaryService.getSummaryRecord(userId, pageable);
