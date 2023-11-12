@@ -34,4 +34,12 @@ public class CardNewsController {
         CardNewsRecordHasNextDto newsRecord = cardNewsService.getNewsRecord(userId, pageable);
         return newsRecord;
     }
+
+    @GetMapping("/cardnews/today")
+    public TodayNewsDto getTodayNews(
+            @LoggedInUserId Long userId
+    ) {
+        List<String> contentUrls = cardNewsService.getTodayNews(userId);
+        return TodayNewsDto.toTodayNewsDto(contentUrls);
+    }
 }
