@@ -16,6 +16,9 @@ public class FormLoginDto {
     @NotBlank
     private String password;
 
+    @NotBlank
+    private  String fcmToken;
+
     public static FormLoginDto from(JoinForm joinRequest) {
         return builder()
                 .account(joinRequest.getAccount())
@@ -24,8 +27,9 @@ public class FormLoginDto {
     }
 
     @Builder
-    public FormLoginDto(String account, String password) {
+    public FormLoginDto(String account, String password, String fcmToken) {
         this.account = account;
         this.password = password;
+        this.fcmToken  = fcmToken;
     }
 }
