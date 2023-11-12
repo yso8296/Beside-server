@@ -34,7 +34,7 @@ public class SummaryController {
         return summaryRecord;
     }
 
-    @GetMapping("/summary/today")
+    @GetMapping("/summaries/today")
     public String todaySummary(
             @LoggedInUserId Long userId
     ) {
