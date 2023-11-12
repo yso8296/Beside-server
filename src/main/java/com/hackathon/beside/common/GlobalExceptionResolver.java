@@ -1,5 +1,7 @@
 package com.hackathon.beside.common;
 
+import com.hackathon.beside.common.exception.DuplicateAccount;
+import com.hackathon.beside.common.exception.DuplicateNickname;
 import com.hackathon.beside.common.response.FailResponse;
 import com.hackathon.beside.common.exception.ResourceNotFoundException;
 import jakarta.validation.ConstraintViolationException;
@@ -14,8 +16,18 @@ public class GlobalExceptionResolver {
         return new FailResponse(e.getMessage());
     }
 
-    @ExceptionHandler(ConstraintViolationException.class)
+    @ExceptionHandler({ConstraintViolationException.class})
     public FailResponse resolveException(Exception e) {
         return new FailResponse(e.getMessage());
+    }
+
+    @ExceptionHandler({DuplicateNickname.class})
+    public FailResponse resolveDuplicateNickname(Exception e) {
+        return new FailResponse("중복된 닉네임 입니다.");
+    }
+
+    @ExceptionHandler({DuplicateAccount.class})
+    public FailResponse resolveDuplicateAccount(Exception e) {
+        return new FailResponse("중복된 아이디 입니다.");
     }
 }

@@ -11,9 +11,9 @@ import static com.hackathon.beside.common.enums.UserAuthority.NORMAL_USER;
 
 @Getter
 @Setter
+@Builder
 @Table(name = "users")
 @Entity
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class User {
@@ -49,6 +49,9 @@ public class User {
                 .account(form.getAccount())
                 .password(form.getPassword())
                 .nickname(form.getNickname())
+                .readNewsCount(0L)
+                .enteredQuizCount(0L)
+                .correctRate(0f)
                 .authority(NORMAL_USER)
                 .build();
     }
