@@ -59,6 +59,11 @@ public class SummaryService {
 
     public String getTodaySummary(Long userId) {
         Optional<Summary> todaySummary = summaryRepository.getTodaySummary();
+
+        if (todaySummary.isEmpty()) {
+            throw new RuntimeException("Today's summary is not available.");
+        }
+
         return todaySummary.get().getContent();
     }
 }

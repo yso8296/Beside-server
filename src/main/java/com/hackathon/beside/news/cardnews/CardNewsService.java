@@ -72,6 +72,11 @@ public class CardNewsService {
 
     public List<String> getTodayNews(Long userId) {
         Optional<News> todayNews = cardNewsRepository.getTodayNews();
+
+        if (todayNews.isEmpty()) {
+            throw new RuntimeException("Today's news is not available.");
+        }
+
         List<NewsContent> newsContents = todayNews.get().getNewsContents();
         List<String> contentUrls = new ArrayList<>();
 
