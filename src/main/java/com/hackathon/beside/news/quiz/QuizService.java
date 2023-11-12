@@ -35,12 +35,12 @@ public class QuizService {
 
     public QuizRecordHasNextDto quizRecord(Long userId, Pageable pageable) {
         int page = pageable.getPageNumber(); // page 위치에 있는 값은 0부터 시작한다.
-        int pageLimit = 20; // 한페이지에 보여줄 글 개수
+        int pageLimit = 1; // 한페이지에 보여줄 글 개수
 
         User user = userRepository.findById(userId).orElseThrow();
 
         PageRequest pageRequest = PageRequest.of(page, pageLimit, Sort.by(Sort.Direction.DESC, "id"));
-        Page<Quiz> pageQuiz = quizRepository.findAllQuizRecord(pageRequest,user.getId());
+        Page<Quiz> pageQuiz = quizRepository.findAllQuizRecord(user.getId(), pageRequest);
 
         boolean hasNext = pageQuiz.hasNext();
 
