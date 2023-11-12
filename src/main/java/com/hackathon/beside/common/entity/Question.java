@@ -15,7 +15,7 @@ public class Question {
     private String content;
     private String explanation;
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "quiz_id")
+    @JoinColumn(name = "question_id")
     private Quiz quiz;
 
     @OneToMany(mappedBy = "question")

@@ -5,7 +5,7 @@ import com.hackathon.beside.common.entity.User;
 import com.hackathon.beside.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
+import java.util.Random;
 import java.util.*;
 
 @RequiredArgsConstructor
@@ -64,13 +64,19 @@ public class RankService {
         MyRankDto myRanking = new MyRankDto();
         int cnt = 1;
         int check = 0;
+        Random random = new Random();
+
         for (int key : keyDescendingMap.keySet()) {
-            User user = map.get(key);
+            User user = keyDescendingMap.get(key);
+
+            // 랜덤값 추가
+            float randomValue = (float) (random.nextInt(50) + 1) / 10.0f; // 0.1부터 5.0까지의 랜덤값
+
             if (user.getId() == userId) {
-                myRanking = MyRankDto.toMyRankDto(user, cnt, (float) key);
+                myRanking = MyRankDto.toMyRankDto(user, cnt, (float) key + randomValue);
                 check++;
-            } else if(userRanks.size() < 3){
-                userRanks.add(MyRankDto.toMyRankDto(user, cnt, (float) key));
+            } else if (userRanks.size() < 3) {
+                userRanks.add(MyRankDto.toMyRankDto(user, cnt, (float) key + randomValue));
                 check++;
             }
             cnt++;
@@ -78,7 +84,7 @@ public class RankService {
             if(check == 4) break;
         }
 
-        myRanking.
+
 
         return TotalRankDto.toTotalRankDto(myRanking, userRanks);
     }
