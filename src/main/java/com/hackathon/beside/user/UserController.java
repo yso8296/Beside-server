@@ -1,5 +1,6 @@
 package com.hackathon.beside.user;
 
+import com.hackathon.beside.common.annotation.LoggedInUserId;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -16,7 +17,7 @@ public class UserController {
 
     @GetMapping("/profile")  // 유저 프로필 조회
     public Profile getProfile(
-            @RequestParam(value = "userId") Long userId
+            @LoggedInUserId Long userId
     ) {
         return userService.getUserProfile(userId);
     }
