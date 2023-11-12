@@ -14,6 +14,7 @@ import java.util.List;
 public class CardNewsRecordDto {
 
     private Long newsId;
+    private String title;
     private int takenTime;
     private LocalDate publishedDate;
     private List<String> urls;
@@ -21,6 +22,7 @@ public class CardNewsRecordDto {
     public static CardNewsRecordDto toCardNewsRecordDto(News news, List<String> urls) {
         return CardNewsRecordDto.builder()
                 .newsId(news.getId())
+                .title(news.getSubject())
                 .takenTime(news.getTakenTime())
                 .publishedDate(news.getPublishedDate())
                 .urls(urls)
