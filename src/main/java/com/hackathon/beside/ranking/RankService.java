@@ -84,8 +84,8 @@ public class RankService {
 
         Map<String, Integer> map = new HashMap<>();
         for (User interestUser : interestUsers) {
-            boolean containsValue = map.containsValue(interestUser.getSchool().getName());
-            if (!containsValue) {
+            boolean containsKey = map.containsKey(interestUser.getSchool().getName());
+            if (!containsKey) {
                 map.put(interestUser.getSchool().getName(), 0);
             }
         }
@@ -96,7 +96,8 @@ public class RankService {
             for (QuizUsersMapping quizUsersMapping : quizUsersMappings) {
                 score += quizUsersMapping.getCorrectCount() * 10;
             }
-            map.put(interestUser.getSchool().getName(), map.get(interestUser.getSchool().getName() + score));
+            int currentScore = map.get(interestUser.getSchool().getName());
+            map.put(interestUser.getSchool().getName(), currentScore + score);
         }
 
         List<Map.Entry<String, Integer>> entryList = new ArrayList<>(map.entrySet());
@@ -109,16 +110,17 @@ public class RankService {
         int cnt = 1;
         int check = 0;
         Random random = new Random();
-        User user = userRepository.findById(userId).get();
+        User user = userRepository.findById(userId).orElseThrow();
+
         for (Map.Entry<String, Integer> stringIntegerEntry : entryList) {
             // 랜덤값 추가
             float randomValue = (float) (random.nextInt(50) + 1) / 10.0f; // 0.1부터 5.0까지의 랜덤값
 
             if (user.getSchool().getName().equals(stringIntegerEntry.getKey())) {
-                myRanking = SchoolRankDto.toSchoolRankDto(cnt, user.getSchool().getName(), (float) stringIntegerEntry.getValue().floatValue() + randomValue);
+                myRanking = SchoolRankDto.toSchoolRankDto(cnt, user.getSchool().getName(), (float) stringIntegerEntry.getValue() + randomValue);
                 check++;
             } else if (userRanks.size() < 3) {
-                userRanks.add(SchoolRankDto.toSchoolRankDto(cnt, stringIntegerEntry.getKey(), (float) stringIntegerEntry.getValue().floatValue() + randomValue));
+                userRanks.add(SchoolRankDto.toSchoolRankDto(cnt, stringIntegerEntry.getKey(), (float) stringIntegerEntry.getValue() + randomValue));
                 check++;
             }
             cnt++;

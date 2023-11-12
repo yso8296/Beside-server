@@ -54,27 +54,32 @@ public class NotificationScheduler {
 //        pushAlarm(MORNING_ALARM, allUserFCMTokens);
 //    }
 //
-//    @Scheduled(fixedRate = 600000)
-//    public void pushDietAlarm() throws FirebaseMessagingException {
-//        log.info("비사이드");
+////    @Scheduled(fixedRate = 600000)
+////    public void pushDietAlarm() throws FirebaseMessagingException {
+////        log.info("비사이드");
+////
+////        // 모든 사용자의 FCM 토큰 가져오기
+////        List<String> allUserFCMTokens = getAllUserFCMTokens();
+////
+////        // 알림 전송
+////        pushAlarm(DINNER_ALARM, allUserFCMTokens);
+////    }
 //
-//        // 모든 사용자의 FCM 토큰 가져오기
-//        List<String> allUserFCMTokens = getAllUserFCMTokens();
-//
-//        // 알림 전송
-//        pushAlarm(DINNER_ALARM, allUserFCMTokens);
-//    }
-//
-//    @Scheduled(fixedRate = 300000)
-//    public void pushMornigDietAlarm() throws FirebaseMessagingException {
-//        log.info("비사이드");
-//
-//        // 모든 사용자의 FCM 토큰 가져오기
-//        List<String> allUserFCMTokens = getAllUserFCMTokens();
-//
-//        // 알림 전송
-//        pushAlarm(LUNCH_ALARM, allUserFCMTokens);
-//    }
+////    @Scheduled(fixedRate = 300000)
+////    public void pushMornigDietAlarm() throws FirebaseMessagingException {
+////        log.info("비사이드");
+////
+////        try {
+////            // 모든 사용자의 FCM 토큰 가져오기
+////            List<String> allUserFCMTokens = getAllUserFCMTokens();
+////
+////            // 알림 전송
+////            pushAlarm(LUNCH_ALARM, allUserFCMTokens);
+////        } catch (Exception e) {
+////            e.printStackTrace();
+////        }
+////
+////    }
 //
 //    private void pushAlarm(RequestPushMessage data, List<String> userFCMTokens) throws FirebaseMessagingException {
 //        for (String userFCMToken : userFCMTokens) {
