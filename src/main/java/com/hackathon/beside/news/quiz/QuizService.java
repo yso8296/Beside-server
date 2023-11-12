@@ -40,6 +40,6 @@ public class QuizService {
                 .toList();
 
 
-        return QuizDto.toWrongAnswerNote(quiz, quizOptionUserMapping, userId);
+        return QuizDto.toWrongAnswerNote(quiz, wrongAnswerQuestions, userId);
     }
 }
