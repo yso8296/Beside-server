@@ -37,45 +37,18 @@ public class QuestionDto {
         this.explanation = explanation;
     }
 
+    public QuestionDto(Question question, QuizOptionUserMapping quizOptionUserMapping, QuizOption answerOption) {
+        this.questionId=question.getId();
+        this.questionName = question.getContent();
+        this.selectedOptionId = quizOptionUserMapping.getQuizOption().getId();
+        this.answerOptionId = answerOption.getId();
+        this.explanation = question.getExplanation();
+        this.options = Option.toOptions(question.getQuizOptions());
+    }
+
     public static List<QuestionDto> toQuestions(List<Question> questions) {
         return questions.stream()
                 .map(question -> new QuestionDto(question.getId(), question.getContent(), question.getQuizOptions()))
                 .toList();
-    }
-
-    public static List<QuestionDto> toWrongAnswerNote(List<Question> questions, List<QuizOptionUserMapping> quizOptionUserMappings,long userId) {
-        long answerOptionId = extractAnswerOptionId(quizOptionUserMappings);
-        long selectedOptionId = extractSelectedOptionId(quizOptionUserMappings,userId);
-
-        return convertToQuestionDto(questions, selectedOptionId, answerOptionId);
-    }
-
-    private static List<QuestionDto> convertToQuestionDto(List<Question> questions, long selectedOptionId, long answerOptionId) {
-        return questions.stream()
-                .map(question -> QuestionDto.builder()
-                        .id(question.getId())
-                        .content(question.getContent())
-                        .quizOptions(question.getQuizOptions())
-                        .explanation(question.getExplanation())
-                        .selectedOptionId(selectedOptionId)
-                        .answerOptionId(answerOptionId)
-                        .build())
-                .toList();
-    }
-
-    private static Long extractSelectedOptionId(List<QuizOptionUserMapping> quizOptionUserMappings, long userId) {
-        return quizOptionUserMappings.stream()
-                .filter(quizOptionUserMapping -> quizOptionUserMapping.getUser().getId() == 1)
-                .findAny()
-                .map(QuizOptionUserMapping::getId)
-                .orElseThrow(() -> new ResourceNotFoundException("유저가 푼 퀴즈가 아닙니다."));
-    }
-
-    private static Long extractAnswerOptionId(List<QuizOptionUserMapping> quizOptionUserMappings) {
-        return quizOptionUserMappings.stream()
-                .filter(quizOptionUserMapping -> quizOptionUserMapping.getQuizOption().isAnswer())
-                .findAny()
-                .map(QuizOptionUserMapping::getId)
-                .orElseThrow(() -> new ResourceNotFoundException("유저가 푼 퀴즈가 아닙니다."));
     }
 }
