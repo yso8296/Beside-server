@@ -20,4 +20,12 @@ public class RankController {
         System.out.println("userId = " + userId);
         return rankService.getUserRank(userId, interest);
     }
+
+    @GetMapping("/rank/school")
+    public TotalSchoolDto totalSchoolRank(
+            @LoggedInUserId Long userId,
+            @RequestParam("interest") String interest
+    ) {
+        return rankService.getSchoolRank(userId, interest);
+    }
 }
