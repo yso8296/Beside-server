@@ -33,4 +33,11 @@ public class SummaryController {
         SummaryRecordHasNextDto summaryRecord = summaryService.getSummaryRecord(userId, pageable);
         return summaryRecord;
     }
+
+    @GetMapping("/summary/today")
+    public String todaySummary(
+            @LoggedInUserId Long userId
+    ) {
+        return summaryService.getTodaySummary(userId);
+    }
 }

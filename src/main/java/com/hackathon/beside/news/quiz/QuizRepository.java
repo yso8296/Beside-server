@@ -14,4 +14,7 @@ public interface QuizRepository extends JpaRepository<Quiz, Long> {
 
     @Query("select quiz from Quiz quiz join quiz.quizUsersMappings qum where qum.user.id =:id")
     Page<Quiz> findAllQuizRecord(@Param("id") Long id, PageRequest pageRequest);
+
+    @Query("select quiz from Quiz quiz order by quiz.id desc limit 1")
+    Optional<Quiz> getTodayQuiz();
 }
