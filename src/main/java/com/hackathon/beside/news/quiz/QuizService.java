@@ -1,5 +1,6 @@
 package com.hackathon.beside.news.quiz;
 
+import com.hackathon.beside.common.entity.Question;
 import com.hackathon.beside.common.entity.Quiz;
 import com.hackathon.beside.common.entity.QuizOptionUserMapping;
 import com.hackathon.beside.common.exception.ResourceNotFoundException;
@@ -8,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -27,7 +29,16 @@ public class QuizService {
     public QuizDto getQuizById(long quizId, Long userId) {
         Quiz quiz = quizRepository.findById(quizId)
                 .orElseThrow(() -> new ResourceNotFoundException("존재 하지 않는 퀴즈 입니다."));
-        List<QuizOptionUserMapping> quizOptionUserMapping = quizOptionUserRepository.findAllByQuizIdAndUserId(quizId, userId);
+        List<Long> questionIds = quiz.getQuestions().stream()
+                .map(Question::getId)
+                .toList();
+        
+        List<QuizOptionUserMapping> quizOptionUserMappings = quizOptionUserRepository.findAllUserChoice(userId, questionIds);
+
+        List<QuizOptionUserMapping> wrongAnswerQuestions = quizOptionUserMappings.stream()
+                .filter(quizOptionUserMapping -> !quizOptionUserMapping.getQuizOption().isAnswer())
+                .toList();
+
 
         return QuizDto.toWrongAnswerNote(quiz, quizOptionUserMapping, userId);
     }
