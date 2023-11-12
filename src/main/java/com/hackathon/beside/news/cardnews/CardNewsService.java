@@ -46,7 +46,7 @@ public class CardNewsService {
         Page<NewsUsersMapping> newsUsersMappings = newsUsersMappingRepository.findAllById(userId, pageRequest);
         boolean hasNext = newsUsersMappings.hasNext();
 
-        List<CardNewsRecordDto> cardNewsRecordDtos = new ArrayList<>();
+        List<CardNewsRecordDto> data = new ArrayList<>();
 
         for (NewsUsersMapping newsUsersMapping : newsUsersMappings) {
             if (isEqualUser(user, newsUsersMapping)) {
@@ -59,11 +59,11 @@ public class CardNewsService {
                 }
 
 
-                cardNewsRecordDtos.add(CardNewsRecordDto.toCardNewsRecordDto(mappingNews, urls));
+                data.add(CardNewsRecordDto.toCardNewsRecordDto(mappingNews, urls));
             }
         }
 
-        return CardNewsRecordHasNextDto.toQuizRecordHasNextDto(hasNext, cardNewsRecordDtos);
+        return CardNewsRecordHasNextDto.toQuizRecordHasNextDto(hasNext, data);
     }
 
     private static boolean isEqualUser(User user, NewsUsersMapping newsUsersMapping) {

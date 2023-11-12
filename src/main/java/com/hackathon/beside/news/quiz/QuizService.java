@@ -100,15 +100,15 @@ public class QuizService {
 
         boolean hasNext = quizUsersMappings.hasNext();
 
-        List<QuizRecordDto> quizRecordDtos = new ArrayList<>();
+        List<QuizRecordDto> data = new ArrayList<>();
 
         for (QuizUsersMapping quizUsersMapping : quizUsersMappings) {
             if (isEqualUser(user, quizUsersMapping)) {
-                quizRecordDtos.add(QuizRecordDto.toQuizRecordDto(quizUsersMapping.getQuiz(), quizUsersMapping));
+                data.add(QuizRecordDto.toQuizRecordDto(quizUsersMapping.getQuiz(), quizUsersMapping));
             }
         }
 
-        return QuizRecordHasNextDto.toQuizRecordHasNextDto(hasNext, quizRecordDtos);
+        return QuizRecordHasNextDto.toQuizRecordHasNextDto(hasNext, data);
     }
 
     private static boolean isEqualUser(User user, QuizUsersMapping quizUsersMapping) {
