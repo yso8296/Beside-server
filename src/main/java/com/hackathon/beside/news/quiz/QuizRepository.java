@@ -12,6 +12,6 @@ import java.util.Optional;
 
 public interface QuizRepository extends JpaRepository<Quiz, Long> {
 
-    @Query("select quiz from Quiz quiz join fetch quiz.quizUsersMappings qum where qum.user.id =:id")
-    Page<Quiz> findAllQuizRecord(PageRequest pageRequest, @Param("id") Long id);
+    @Query("select quiz from Quiz quiz join quiz.quizUsersMappings qum where qum.user.id =:id")
+    Page<Quiz> findAllQuizRecord(@Param("id") Long id, PageRequest pageRequest);
 }

@@ -18,4 +18,7 @@ public class News {
 
     @OneToMany(mappedBy = "news")
     public List<NewsContent> newsContents;
+
+    @OneToMany(mappedBy = "news")
+    private List<NewsUsersMapping> newsUsersMappings;
 }
