@@ -42,12 +42,9 @@ public class CardNewsService {
         User user = userRepository.findById(userId).orElseThrow();
 
         PageRequest pageRequest = PageRequest.of(page, pageLimit, Sort.by(Sort.Direction.DESC, "id"));
-//        Page<News> news = cardNewsRepository.findAllNewsRecord(user.getId(), pageRequest);
         Page<NewsUsersMapping> newsUsersMappings = newsUsersMappingRepository.findAllById(userId, pageRequest);
         boolean hasNext = newsUsersMappings.hasNext();
-        System.out.println("nums = " + newsUsersMappings);
 
-        //List<NewsUsersMapping> newsUsersMappings = newsUsersMappingRepository.findAll();
         List<CardNewsRecordDto> cardNewsRecordDtos = new ArrayList<>();
 
         for (NewsUsersMapping newsUsersMapping : newsUsersMappings) {

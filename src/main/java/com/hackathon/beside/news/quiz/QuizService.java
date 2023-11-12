@@ -1,5 +1,6 @@
 package com.hackathon.beside.news.quiz;
 
+import com.hackathon.beside.common.entity.NewsUsersMapping;
 import com.hackathon.beside.common.entity.Quiz;
 import com.hackathon.beside.common.entity.QuizUsersMapping;
 import com.hackathon.beside.common.entity.User;
@@ -40,12 +41,10 @@ public class QuizService {
         User user = userRepository.findById(userId).orElseThrow();
 
         PageRequest pageRequest = PageRequest.of(page, pageLimit, Sort.by(Sort.Direction.DESC, "id"));
-        Page<Quiz> pageQuiz = quizRepository.findAllQuizRecord(user.getId(), pageRequest);
+        Page<QuizUsersMapping> quizUsersMappings = quizUsersMappingRepository.findAllById(userId, pageRequest);
 
-        boolean hasNext = pageQuiz.hasNext();
+        boolean hasNext = quizUsersMappings.hasNext();
 
-        // 한 페이지당 3개식 글을 보여주고 정렬 기준은 ID기준으로 내림차순
-        List<QuizUsersMapping> quizUsersMappings = quizUsersMappingRepository.findAll();
         List<QuizRecordDto> quizRecordDtos = new ArrayList<>();
 
         for (QuizUsersMapping quizUsersMapping : quizUsersMappings) {
