@@ -37,9 +37,6 @@ public class User {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "interest_id")
     private Interest interest;
-
-    @OneToMany(mappedBy = "user")
-    private List<TermsUsersMapping> termsUsersMappings;
     @OneToMany(mappedBy = "user")
     private List<QuizOptionUserMapping> quizOptionsUserMappings;
     @OneToMany(mappedBy = "user")

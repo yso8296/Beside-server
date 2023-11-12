@@ -1,5 +1,6 @@
 package com.hackathon.beside.news.quiz;
 
+import com.hackathon.beside.common.annotation.LoggedInUserId;
 import com.hackathon.beside.news.cardnews.presentation.response.QuizDto;
 import jakarta.validation.constraints.Positive;
 import lombok.RequiredArgsConstructor;
@@ -13,11 +14,16 @@ public class QuizController {
 
     private final QuizService quizService;
 
-    @GetMapping("/quiz/{quizId}")
-    public QuizDto getQuizById(
-            @PathVariable("quizId") @Positive long quizId
-    ) {
-        return quizService.getQuizById(quizId);
+    @GetMapping("/quiz/today")
+    public QuizDto getTodayQuiz() {
+        return quizService.getTodayQuiz();
     }
 
+    @GetMapping("/quiz/{quizId}")
+    public QuizDto getTodayQuiz(
+            @LoggedInUserId Long userId,
+            @PathVariable("quizId") @Positive long quizId
+    ){
+        return quizService.getQuizById(quizId,userId);
+    }
 }
