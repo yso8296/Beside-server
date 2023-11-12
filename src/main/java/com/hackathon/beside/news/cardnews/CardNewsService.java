@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -67,7 +68,7 @@ public class CardNewsService {
     }
 
     private static boolean isEqualUser(User user, NewsUsersMapping newsUsersMapping) {
-        return newsUsersMapping.getUser().getId() == user.getId();
+        return Objects.equals(newsUsersMapping.getUser().getId(), user.getId());
     }
 
     public List<String> getTodayNews(Long userId) {
