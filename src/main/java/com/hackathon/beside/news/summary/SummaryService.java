@@ -41,16 +41,16 @@ public class SummaryService {
         Page<SummaryUsersMapping> summaryUsersMappings = summaryUsersMappingRepository.findAllById(userId, pageRequest);
         boolean hasNext = summaryUsersMappings.hasNext();
 
-        List<SummaryRecordDto> summaryRecordDtos = new ArrayList<>();
+        List<SummaryRecordDto> data = new ArrayList<>();
 
         for (SummaryUsersMapping summaryUsersMapping : summaryUsersMappings) {
             if (isEqualUser(user, summaryUsersMapping)) {
                 Summary summary = summaryUsersMapping.getSummary();
-                summaryRecordDtos.add(SummaryRecordDto.toSummaryRecordDto(summary));
+                data.add(SummaryRecordDto.toSummaryRecordDto(summary));
             }
         }
 
-        return SummaryRecordHasNextDto.toSummaryRecordHasNextDto(hasNext, summaryRecordDtos);
+        return SummaryRecordHasNextDto.toSummaryRecordHasNextDto(hasNext, data);
     }
 
     private static boolean isEqualUser(User user, SummaryUsersMapping summaryUsersMapping) {

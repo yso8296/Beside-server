@@ -11,12 +11,12 @@ import java.util.List;
 public class QuizRecordHasNextDto {
 
     private boolean hasNext;
-    private List<QuizRecordDto> quizRecordDtos;
+    private List<QuizRecordDto> data;
 
-    public static QuizRecordHasNextDto toQuizRecordHasNextDto(boolean hasNext, List<QuizRecordDto> quizRecordDtos) {
+    public static QuizRecordHasNextDto toQuizRecordHasNextDto(boolean hasNext, List<QuizRecordDto> data) {
         return QuizRecordHasNextDto.builder()
                 .hasNext(hasNext)
-                .quizRecordDtos(quizRecordDtos)
+                .data(data)
                 .build();
 
     }

@@ -28,6 +28,7 @@ public class User {
     private Long enteredQuizCount;
     private Float correctRate;
     //private float time;
+    //private String token;
     private UserAuthority authority;
 
     @ManyToOne(fetch = FetchType.LAZY)

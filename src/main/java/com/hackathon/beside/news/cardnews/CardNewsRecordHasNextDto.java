@@ -1,7 +1,5 @@
 package com.hackathon.beside.news.cardnews;
 
-import com.hackathon.beside.news.quiz.QuizRecordDto;
-import com.hackathon.beside.news.quiz.QuizRecordHasNextDto;
 import lombok.*;
 
 import java.util.List;
@@ -13,12 +11,12 @@ import java.util.List;
 public class CardNewsRecordHasNextDto {
 
     private boolean hasNext;
-    private List<CardNewsRecordDto> cardNewsRecordDtos;
+    private List<CardNewsRecordDto> data;
 
-    public static CardNewsRecordHasNextDto toQuizRecordHasNextDto(boolean hasNext, List<CardNewsRecordDto> cardNewsRecordDtos) {
+    public static CardNewsRecordHasNextDto toQuizRecordHasNextDto(boolean hasNext, List<CardNewsRecordDto> data) {
         return CardNewsRecordHasNextDto.builder()
                 .hasNext(hasNext)
-                .cardNewsRecordDtos(cardNewsRecordDtos)
+                .data(data)
                 .build();
     }
 }

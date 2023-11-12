@@ -1,7 +1,5 @@
 package com.hackathon.beside.news.summary;
 
-import com.hackathon.beside.news.quiz.QuizRecordDto;
-import com.hackathon.beside.news.quiz.QuizRecordHasNextDto;
 import lombok.*;
 
 import java.util.List;
@@ -13,12 +11,12 @@ import java.util.List;
 public class SummaryRecordHasNextDto {
 
     private boolean hasNext;
-    private List<SummaryRecordDto> summaryRecordDtos;
+    private List<SummaryRecordDto> data;
 
     public static SummaryRecordHasNextDto toSummaryRecordHasNextDto(boolean hasNext, List<SummaryRecordDto> summaries) {
         return SummaryRecordHasNextDto.builder()
                 .hasNext(hasNext)
-                .summaryRecordDtos(summaries)
+                .data(summaries)
                 .build();
     }
 }
