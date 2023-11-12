@@ -4,8 +4,6 @@ import com.hackathon.beside.common.enums.UserAuthority;
 import com.hackathon.beside.user.JoinForm;
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.List;
 
@@ -37,9 +35,6 @@ public class User {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "interest_id")
     private Interest interest;
-
-    @OneToMany(mappedBy = "user")
-    private List<TermsUsersMapping> termsUsersMappings;
     @OneToMany(mappedBy = "user")
     private List<QuizOptionUserMapping> quizOptionsUserMappings;
     @OneToMany(mappedBy = "user")
